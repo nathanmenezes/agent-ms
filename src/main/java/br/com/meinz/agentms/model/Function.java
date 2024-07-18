@@ -2,7 +2,9 @@ package br.com.meinz.agentms.model;
 
 import br.com.meinz.agentms.enums.FunctionType;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.proxy.HibernateProxy;
 
@@ -12,19 +14,28 @@ import java.util.Objects;
 @Setter
 @Entity
 @Table(name = "function")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Function extends AbstractEntity {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "flow_id", nullable = false)
     private Flow flow;
 
-    @Column(name = "json_payload", length = 16777216)
+    @Column(name = "expected_output", length = 16777216)
     @Lob
-    private String jsonPayload;
+    private String expectedOutput;
+
+    @Column(name = "expected_input", length = 16777216)
+    @Lob
+    private String expectedInput;
 
     @Column(name = "function_type", nullable = false)
     @Enumerated(EnumType.STRING)
     private FunctionType functionType;
+
+    @Column(name = "order", nullable = false)
+    private Integer order;
 
     @ManyToOne
     @JoinColumn(name = "next_function_id")

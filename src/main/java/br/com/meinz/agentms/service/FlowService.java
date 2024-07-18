@@ -20,4 +20,8 @@ public class FlowService {
         Flow flow = new Flow(flowRequest);
         flowRepository.save(flow);
     }
+
+    public void executeFlow(String flowId) {
+        log.info("Executing flow: {}", flowId);
+    }
 }
